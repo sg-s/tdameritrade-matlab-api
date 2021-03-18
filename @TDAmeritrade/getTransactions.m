@@ -7,10 +7,10 @@ function transactions = getTransactions(self)
 % get a new access token
 
 disp('Requesting access token using OAuth...')
-curl_str = 'curl -X POST --header "Content-Type: application/x-www-form-urlencoded" -d "grant_type=refresh_token&refresh_token=$REFRESH_token&access_type=&code=&client_id=$API_KEY%40AMER.OAUTHAP" "https://api.tdameritrade.com/v1/oauth2/token"';
+curl_str = 'curl -X POST --header "Content-Type: application/x-www-form-urlencoded" -d "grant_type=refresh_token&refresh_token=$REFRESH_token&access_type=&code=&client_id=$APIKey%40AMER.OAUTHAP" "https://api.tdameritrade.com/v1/oauth2/token"';
 
-curl_str = strrep(curl_str, '$REFRESH_token',urlencode(self.refresh_token));
-curl_str = strrep(curl_str, '$API_KEY',self.API_key);
+curl_str = strrep(curl_str, '$REFRESH_token',urlencode(self.RefreshToken));
+curl_str = strrep(curl_str, '$APIKey',self.APIKey);
 
 [e,o] = system(curl_str);
 
@@ -30,18 +30,19 @@ curl_str = 'curl -X GET --header "Authorization: " --header "Authorization: Bear
 
 
 
-curl_str = strrep(curl_str,'$ACCOUNTID',self.AccountID);
-curl_str = strrep(curl_str,'$ACCESS_TOKEN',(response.access_token));
-
+curl_str = strrep(curl_str,'$ACCOUNTID',strip(self.AccountID));
+curl_str = strrep(curl_str,'$ACCESS_TOKEN',strip(response.access_token));
 
 [e,o] = system(curl_str);
+
+assert(e==0,'curl failed. Cannot get transactions')
 
 tx_raw = jsondecode(o);
 transactions = table(categorical(NaN),0,0,NaT('TimeZone','UTC'),0,0,'VariableNames',{'Symbol','Quantity','Price','Date','Amount','TransactionID'});
 transactions = repmat(transactions,length(tx_raw),1);
 
 for i = 1:length(tx_raw)
-	this_tx = tx_raw{i};
+	this_tx = tx_raw(i);
 	if ~strcmp(this_tx.type,'TRADE')
 		continue
 	end

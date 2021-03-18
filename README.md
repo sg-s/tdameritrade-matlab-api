@@ -63,13 +63,77 @@ f = T.getFundamental;
 
 returns a structure array with various fundamental information (e.g., `quickRatio`, `marketCap`, etc.)
 
+This information is cached on disk, so subsequent calls will load from the cache and will not ping TDA's servers. If you want to force a fetch from the server, use:
+
+```
+f = T.getFundamental([],false);
+```
+
+### Get option chain
+
+```
+o = T.getOptionChain;
+```
+
+returns the full option chain for the symbols requested. 
+
 ### Get transactions from account 
 
-### Get positions 
+
+```
+transactions = T.getTransactions;
+```
+
+Using OAuth2, get a list of transactions from a specified account. You need to tell it what account to read from (see below). 
 
 ## Configuration
 
 You will need a TD Ameritrade trading account **and** a developer account to use this. 
+
+There are two levels of using this API, based on whether you want basic, delayed information (for which you can make unauthenticated requests), or realtime/private information (such as accessing your transactions). 
+
+TD Ameritrade has smartly made it easy to get basic information, and made it hard (but secure) to access more sensitive information. 
+
+
+### Basic configuration 
+
+1. Go to [https://developer.tdameritrade.com/](https://developer.tdameritrade.com/)
+2. Register for a new account
+3. Create a new app, register it, and copy the "customer key"
+4. This is your API key. Set it using:
+
+```
+T = TDAmeritrade;
+T.APIKey = 'YOURAPIKEY';
+```
+
+
+### Advanced configuration
+
+You only need to do this if you want to do things like:
+
+1. read out account information
+2. get realtime data
+3. place trades, etc. 
+
+## Limitations and known bugs
+
+1. EPS incorrectly returned as 0 for companies that lose money (this is a bug in TDAmeritrade's reporting, so cannot be fixed)
+2. Authenticated requests using OAuth use the system `curl`, rather than builtin MATLAB tools. If you don't have `curl` installed on your computer, this won't work. 
+
+
+## Features not yet implemented
+
+1. Realtime quotes (using authenticated requests)
+2. Variable resolution historical data 
+3. Get account balances, positions & orders
+4. Place orders
+5. Cancel orders
+6. Get new refresh token using access token
+7. Instrument Search using keywords and regex
+8. Get mover information
+8. Watchlist operations
+
 
 ## License  
 
