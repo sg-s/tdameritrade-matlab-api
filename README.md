@@ -104,7 +104,7 @@ TD Ameritrade has smartly made it easy to get basic information, and made it har
 
 ```
 T = TDAmeritrade;
-T.APIKey = 'YOURAPIKEY';
+T.set('APIKey','YOURAPIKEY');
 ```
 
 
@@ -115,6 +115,20 @@ You only need to do this if you want to do things like:
 1. read out account information
 2. get realtime data
 3. place trades, etc. 
+
+You will have to go through the process of getting access tokens via OAuth (beyond the scope of this document). Once you have it,
+
+```matlab
+
+% set the refresh token 
+% This API will use the refresh token to get 
+% a new access token and will use that
+T.set('RefreshToken','YOUR_REFRESH_TOKEN');
+
+
+% also tell it what account you want to read from
+T.set('AccountID','YOUR_ACCOUNT_ID');
+```
 
 ## Limitations and known bugs
 
