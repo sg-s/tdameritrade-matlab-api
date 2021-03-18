@@ -1,0 +1,5 @@
+*private*
+*.key
+*sublime-workspace
+*sublime-project
+*.DS_Store
