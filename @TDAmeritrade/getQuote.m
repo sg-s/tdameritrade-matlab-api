@@ -29,9 +29,13 @@ for bi = 1:n_batches
 
 	curl_str = 'https://api.tdameritrade.com/v1/marketdata/quotes?&symbol=TICKER&apikey=';
 	curl_str = strrep(curl_str,'TICKER',ticker_string);
-	curl_str = [curl_str self.API_key];
-	temp = webread(curl_str);
+	curl_str = [curl_str self.APIKey];
 
+	try
+		temp = webread(curl_str);
+	catch
+		error('Could not connect to server. FATAL')
+	end
 	for i = 1:length(self.tickers)
 		if batch_idx(i) ~= bi
 			continue

@@ -1,17 +1,8 @@
-# TDAmeritrade
+# Unofficial TDAmeritrade MATLAB API
 
 (Will be) fully featured TD Ameritrade API for MATLAB. 
 
 
-## Installation
-
-Download this repo and a dependency, and add them to your MATLAB path:
-
-
-```bash
-git clone https://github.com/sg-s/srinivas.gs_mtools/
-git clone https://github.com/sg-s/tdameritrade-matlab-api/
-```
 
 
 
@@ -21,6 +12,7 @@ git clone https://github.com/sg-s/tdameritrade-matlab-api/
 
 ```matlab
 T = TDAmeritrade;
+T.tickers={'AAPL','INTC','TSLA'};
 data = T.getPriceHistory;
 ```
 
@@ -40,7 +32,7 @@ Currently, only daily information is available, but future work will support all
 q = T.getQuote;
 ```
 
-returns a [StockQuote]() array. The stock quote for `AAPL` can look like:
+returns a [StockQuote](https://github.com/sg-s/tdameritrade-matlab-api/blob/main/StockQuote.m) array. The stock quote for `AAPL` can look like:
 
 
 ```
@@ -85,6 +77,18 @@ transactions = T.getTransactions;
 ```
 
 Using OAuth2, get a list of transactions from a specified account. You need to tell it what account to read from (see below). 
+
+
+## Installation
+
+Download this repo and a dependency, and add them to your MATLAB path:
+
+
+```bash
+git clone https://github.com/sg-s/srinivas.gs_mtools/
+git clone https://github.com/sg-s/tdameritrade-matlab-api/
+```
+
 
 ## Configuration
 

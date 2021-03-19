@@ -13,9 +13,9 @@ for i = 1:length(self.tickers)
 	T = upper(self.tickers{i});
 
 
-	url = ('https://api.tdameritrade.com/v1/marketdata/chains?&symbol=TICKER&apikey=API_KEY&contractType=OPTION_TYPE');
+	url = ('https://api.tdameritrade.com/v1/marketdata/chains?&symbol=TICKER&apikey=APIKey&contractType=OPTION_TYPE');
 
-	url = strrep(url,'API_KEY',self.API_key);
+	url = strrep(url,'APIKey',self.APIKey);
 	url = strrep(url,'TICKER',T);
 	url = strrep(url,'OPTION_TYPE',upper(args.Type));
 
