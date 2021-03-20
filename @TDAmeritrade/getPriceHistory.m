@@ -20,7 +20,7 @@ for i = 1:length(self.tickers)
 
 	curl_str = strrep(curl_str,'END_DATE',mat2str(posixtime(self.EndDate)*1000));
 	curl_str = strrep(curl_str,'START_DATE',mat2str(posixtime(self.StartDate)*1000));
-	curl_str = [curl_str self.API_key];
+	curl_str = [curl_str self.APIKey];
 	temp = webread(curl_str);
 
 	if temp.empty 

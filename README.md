@@ -26,6 +26,16 @@ data = T.getPriceHistory;
 
 Currently, only daily information is available, but future work will support all available frequencies. 
 
+You can plot this using:
+
+```
+plot(data(1).Time,data(1).Close)
+```
+
+and you should get something like this:
+
+![](https://user-images.githubusercontent.com/6005346/111885025-a9677d00-899b-11eb-9300-211822763cfc.png)
+
 ### Get delayed quotes 
 
 ```matlab
@@ -58,16 +68,16 @@ returns a structure array with various fundamental information (e.g., `quickRati
 This information is cached on disk, so subsequent calls will load from the cache and will not ping TDA's servers. If you want to force a fetch from the server, use:
 
 ```
-f = T.getFundamental([],false);
+f = T.getFundamental('UseCache',false);
 ```
 
 ### Get option chain
 
 ```
-o = T.getOptionChain;
+o = T.getOptionChain('Type','Call');
 ```
 
-returns the full option chain for the symbols requested. 
+returns the full option chain for the symbols requested. Results are returned as an array of [OptionContract](https://github.com/sg-s/tdameritrade-matlab-api/blob/main/OptionContract.m). 
 
 ### Get transactions from account 
 

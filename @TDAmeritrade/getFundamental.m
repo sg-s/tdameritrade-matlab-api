@@ -1,8 +1,10 @@
 % get fundamental info
-function fdata = getFundamental(self, progressbar, UseCache)
+function fdata = getFundamental(self, o)
 
-if nargin < 3 
-	UseCache = true;
+arguments
+	self (1,1) TDAmeritrade
+	o.ProgressBar matlab.ui.dialog.ProgressDialog
+	o.UseCache (1,1) logical = true
 end
 
 cloc = fullfile(userpath,'tdameritrade','fundamental_data');
@@ -15,15 +17,15 @@ for i = length(self.tickers):-1:1
 
 
 	% progress
-	if nargin > 1 && isa(progressbar,'matlab.ui.dialog.ProgressDialog')
-		progressbar.Value = (length(self.tickers) - i)/length(self.tickers);
-		progressbar.Message = ['Downloading fundamental data: ' T];
+	if nargin > 1 && isa(o.ProgressBar,'matlab.ui.dialog.ProgressDialog')
+		o.ProgressBar.Value = (length(self.tickers) - i)/length(self.tickers);
+		o.ProgressBar.Message = ['Downloading fundamental data: ' T];
 	else
 		disp(T)
 	end
 
 	% first check the cache
-	if UseCache
+	if o.UseCache
 		try
 			load(fullfile(cloc,[T '.mat']),'FunData')
 			fdata(i) = FunData;
@@ -37,7 +39,7 @@ for i = length(self.tickers):-1:1
 	curl_str = 'https://api.tdameritrade.com/v1/instruments?&symbol=TICKER&projection=fundamental&apikey=';
 
 	curl_str = strrep(curl_str,'TICKER',T);
-	curl_str = [curl_str self.API_key];
+	curl_str = [curl_str self.APIKey];
 	data = webread(curl_str);
 
 	try
