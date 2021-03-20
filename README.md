@@ -88,6 +88,32 @@ transactions = T.getTransactions;
 
 Using OAuth2, get a list of transactions from a specified account. You need to tell it what account to read from (see below). 
 
+`transactions` is a table that could look like this:
+
+```
+
+        Symbol         Quantity    Price             Date           
+    _______________    ________    ______    ____________________   
+
+    MOON                 -500         127    19-Mar-2021 13:18:12   
+    FTFT                  -60      18.151    19-Mar-2021 14:38:06   
+    TSLA                  -14       15.17    11-Mar-2021 14:15:19   
+    GME                    14          18    11-Mar-2021 15:10:11   
+    NVDA                   5          125    03-Mar-2021 14:19:00   
+    GME                   -1        122.6    02-Mar-2021 14:21:40   
+    GME                   700      123.14    22-Feb-2021 14:44:30   
+    GME                  -700         125    22-Feb-2021 14:31:28   
+
+```
+
+
+### Get positions for account
+
+```
+positions = T.getPositions();
+```
+
+returns a table with positions. 
 
 ## Installation
 
@@ -154,7 +180,7 @@ T.set('AccountID','YOUR_ACCOUNT_ID');
 
 1. Realtime quotes (using authenticated requests)
 2. Variable resolution historical data 
-3. Get account balances, positions & orders
+3. Get account balances & orders
 4. Place orders
 5. Cancel orders
 6. Get new refresh token using access token
