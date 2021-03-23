@@ -179,7 +179,7 @@ T.set('AccountID','YOUR_ACCOUNT_ID');
 ## Features not yet implemented
 
 1. Realtime quotes (using authenticated requests)
-2. Variable resolution historical data 
+2. ~~Variable resolution historical data~~
 3. Get account balances & orders
 4. Place orders
 5. Cancel orders

@@ -14,9 +14,6 @@ properties
 	StartDate (1,1) datetime = datetime('03-Jan-1995')
 	EndDate (1,1) datetime = datetime
 
-
-	frequencyType (1,1) duration = days(1)
-
 end % props
 
 

@@ -13,6 +13,9 @@ end % private props
 
 properties
 
+	frequencyType char {mustBeMember(frequencyType,{'daily','minute','weekly','monthly'})} = 'daily'
+
+	TimeZone = 'America/New_York';
 
 end % props
 
@@ -43,6 +46,8 @@ methods
 		catch
 		end
 
+		self.EndDate.TimeZone = self.TimeZone;
+		self.StartDate.TimeZone = self.TimeZone;
 	end % constructor
 
 
