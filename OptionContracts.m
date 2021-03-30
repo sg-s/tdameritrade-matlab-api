@@ -1,5 +1,7 @@
 
-classdef OptionContract
+
+% contains a store of option contacts 
+classdef OptionContracts < Silo
 
 
 
@@ -9,39 +11,43 @@ end % private props
 
 properties
 
-	Type char  {mustBeMember(Type, {'Call','Put'})} = 'Call'
+	Type (:,1) string = "Call"
 
-	symbol char 
+	symbol (:,1) string = "" 
 
-	strikePrice (1,1) double 
+	strikePrice (:,1) double 
 
-	bid (1,1) double
-	ask (1,1) double
-	highPrice (1,1) double
-	lowPrice (1,1) double
+	bid (:,1) double
+	ask (:,1) double
+	highPrice (:,1) double
+	lowPrice (:,1) double
 
-    totalVolume (1,1) double 
+    totalVolume (:,1) double 
 
-    volatility (1,1) double 
-	delta  (1,1) double
-	gamma (1,1) double
-	theta (1,1) double
-	vega (1,1) double
-	rho (1,1) double
+    volatility (:,1) double 
+	delta  (:,1) double
+	gamma (:,1) double
+	theta (:,1) double
+	vega (:,1) double
+	rho (:,1) double
 
 
-	timeValue (1,1) double
-	theoreticalOptionValue (1,1) double 
-	theoreticalVolatility (1,1) double
+	timeValue (:,1) double
+	theoreticalOptionValue (:,1) double 
+	theoreticalVolatility (:,1) double
 
 	
-	expirationDate (1,1) datetime 
-	multiplier (1,1) double = 100
+	expirationDate (:,1) datetime 
+	multiplier (:,1) double = 100
 
-	percentChange (1,1) double 	
-	inTheMoney (1,1) logical
+	percentChange (:,1) double 	
+	inTheMoney (:,1) logical
 
-	openInterest (1,1) double
+	openInterest (:,1) double
+
+	time (:,1) datetime = datetime
+
+	underlyingPrice (:,1) double = NaN
 
 
 end % props
@@ -50,34 +56,18 @@ end % props
 
 methods 
 
-	function self = OptionContract(data)
-
-		if nargin == 0
-			return
-		end
-
-		assert(isstruct(data),'Expected data to be a struct')
-		assert(isscalar(data),'Expected data to be scalar')
-
-		fn = fieldnames(data);
-
-		fn = intersect(fn,properties(self));
-		for i = 1:length(fn)
-			if strcmp(fn{i},'expirationDate')
-				self.expirationDate = datetime(data.expirationDate*1e-3,'ConvertFrom','posixtime');
-
-			else
-				try
-					self.(fn{i}) = data.(fn{i});
-				catch
-					self.(fn{i}) = str2double(data.(fn{i}));
-				end
-			end
-		end
+	function self = OptionContracts()
 
 
 	end % constructor
 
+
+
+	function self = setTimeZone(self,TimeZone)
+		for i = 1:length(self)
+			self(i).expirationDate.TimeZone = TimeZone;
+		end
+	end
 
 	function options = filter(self,args)
 
@@ -139,20 +129,8 @@ methods
 	end
 
 
-	function N = daysToExpiration(self)
-		keyboard
-	end
-
 
 end % methods
-
-
-
-methods (Static)
-
-end % static methods
-
-
 
 
 

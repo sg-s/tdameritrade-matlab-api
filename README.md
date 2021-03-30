@@ -1,5 +1,7 @@
 # Unofficial TDAmeritrade MATLAB API
 
+[![View tdameritrade-matlab-api on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/89147-tdameritrade-matlab-api)
+
 (Will be) fully featured TD Ameritrade API for MATLAB. 
 
 
