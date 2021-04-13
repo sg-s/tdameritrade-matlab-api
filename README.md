@@ -125,6 +125,7 @@ Download this repo and a dependency, and add them to your MATLAB path:
 ```bash
 git clone https://github.com/sg-s/srinivas.gs_mtools/
 git clone https://github.com/sg-s/tdameritrade-matlab-api/
+git clone https://github.com/sg-s/silo/
 ```
 
 

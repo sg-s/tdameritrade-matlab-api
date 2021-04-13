@@ -5,6 +5,7 @@ function options = getOptionChain(self, args)
 arguments
 	self (1,1) TDAmeritrade
 	args.Type string  {mustBeMember(args.Type,["Call","Put"])} = "Call"
+	args.Verbose (1,1) logical = true
 end
 
 options = OptionContracts;
@@ -14,6 +15,10 @@ thistime = datetime;
 for i = 1:length(self.tickers)
 	T = upper(self.tickers{i});
 
+
+	if args.Verbose
+		disp([T " -- " args.Type])
+	end
 
 	url = ('https://api.tdameritrade.com/v1/marketdata/chains?&symbol=TICKER&apikey=APIKey&contractType=OPTION_TYPE&toDate=ENDDATE&fromDate=STARTDATE');
 
