@@ -7,13 +7,13 @@ classdef StockQuote < Constructable
 
 
 properties
-	assetType char
-	cusip char
-	symbol char
-	description char
-	closePrice double
-	lastPrice double
-	divYield double 
+	assetType (1,1) string
+	cusip (1,1) string
+	symbol (1,1) string
+	description (1,1) string
+	closePrice (1,1) double
+	lastPrice (1,1) double
+	divYield (1,1) double 
 
 end
 

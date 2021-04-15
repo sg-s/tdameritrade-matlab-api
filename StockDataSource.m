@@ -9,8 +9,7 @@ end % private props
 
 properties
 
-	tickers cell = {'AAPL', 'TDOC'}
-
+	tickers (:,1) string =  ["AAPL"; "TDOC"]
 	StartDate (1,1) datetime = datetime('03-Jan-1995')
 	EndDate (1,1) datetime = datetime
 
